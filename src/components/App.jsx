@@ -4,6 +4,7 @@ import ArticleManager from './ArticleManager'
 import Footer from './Footer'
 import Header from './Header'
 import Nav from './Nav'
+import SingleArticleManager from './SingleArticleManager'
 
 
 
@@ -16,7 +17,12 @@ function App() {
       <Nav setTopicsList={setTopicsList} topicsList={topicsList} activeUserName={activeUserName}/>
       <Header />
       <main>
-      <ArticleManager />
+        <Routes>
+          <Route path='/' element={ <ArticleManager />} />
+          <Route path='/articles/:id' element={<SingleArticleManager activeUserName={activeUserName}/>} />
+
+        </Routes>
+     
 
       </main>
 
