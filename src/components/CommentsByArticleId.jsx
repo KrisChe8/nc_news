@@ -21,7 +21,7 @@ export default function CommentsByArticleId({id, activeUserName}){
             </form>
             <ul className="commentsList">
                 {commentsList.map((comment)=>{
-                    return <CommentCard comment={comment} articleId={articleId} activeUserName={activeUserName}/>
+                    return <CommentCard key={comment.comment_id} comment={comment} articleId={articleId} activeUserName={activeUserName}/>
                 })}
             </ul>
 

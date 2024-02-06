@@ -14,6 +14,7 @@ export default function SingleArticleManager({activeUserName}){
     useEffect(()=>{
         axios.get(`https://nc-news-24h6.onrender.com/api/articles/${id}`).then((response)=>{
             setArticle(response.data.article)
+            setVoteArticle(response.data.article.votes)
             })
     }, [])
     
@@ -21,7 +22,7 @@ export default function SingleArticleManager({activeUserName}){
 
     return(
         <section>
-           <SingleArticleCard article={article} activeUserName={activeUserName} id={id}/>
+           <SingleArticleCard article={article} activeUserName={activeUserName} id={id} voteArticle={voteArticle} setVoteArticle={setVoteArticle}/>
         </section>
     )
 }
