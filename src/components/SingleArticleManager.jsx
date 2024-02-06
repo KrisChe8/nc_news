@@ -5,8 +5,8 @@ import SingleArticleCard from './SingleArticleCard';
 
 export default function SingleArticleManager({activeUserName}){
     const [voteArticle, setVoteArticle] = useState(null)
-    const [commentId, setCommentId] = useState(null)
-    const [commentsVote, setCommentsVote] = useState(null)
+    
+    
     
     const [article, setArticle] = useState({})
 
@@ -21,7 +21,7 @@ export default function SingleArticleManager({activeUserName}){
 
     return(
         <section>
-           <SingleArticleCard article={article} activeUserName={activeUserName} />
+           <SingleArticleCard article={article} activeUserName={activeUserName} id={id}/>
         </section>
     )
 }
