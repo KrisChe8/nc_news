@@ -1,18 +1,16 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import SingleArticleCard from './SingleArticleCard';
+import {getArticleById} from '../../utils/api'
 
 export default function SingleArticleManager({activeUserName}){
     const [voteArticle, setVoteArticle] = useState(null)
-    
-    
-    
     const [article, setArticle] = useState({})
 
     const {id}  = useParams();
     useEffect(()=>{
-        axios.get(`https://nc-news-24h6.onrender.com/api/articles/${id}`).then((response)=>{
+        getArticleById(id)
+        .then((response)=>{
             setArticle(response.data.article)
             setVoteArticle(response.data.article.votes)
             })

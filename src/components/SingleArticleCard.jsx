@@ -1,18 +1,24 @@
 import {Link} from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import axios from 'axios';
+import { useState} from 'react'
 import CommentsByArticleId from './CommentsByArticleId'
+import {updateVotesForArticleById} from '../../utils/api'
 
 export default function SingleArticleCard({article, activeUserName, id, setVoteArticle, voteArticle }){
 
     // let dateArr = article.created_at.split('T');
     // console.log(dateArr[0])
     const [err, setErr] = useState(null)
+    const [likeDisabled, setLikeDisabled] = useState(false);
+    const [dislikeDisabled, setDislikeDisabled] = useState(false)
 
    const handleLikeClick = () =>{
     setVoteArticle((currentCount)=> currentCount + 1);
+    setLikeDisabled(true)
+    setDislikeDisabled(false)
     setErr(null);
-    axios.patch(`https://nc-news-24h6.onrender.com/api/articles/${id}`, {inc_votes : 1 }).catch((err)=>{
+    const votes = {inc_votes : 1 };
+    updateVotesForArticleById(id, votes)
+    .catch((err)=>{
         setVoteArticle((currentCount)=> currentCount - 1);
         setErr('Something went wrong, please try again')
     })
@@ -20,8 +26,12 @@ export default function SingleArticleCard({article, activeUserName, id, setVoteA
 
    const handleDislikeClick = ()=>{
     setVoteArticle((currentCount)=> currentCount - 1);
+    setLikeDisabled(false)
+    setDislikeDisabled(true)
     setErr(null);
-    axios.patch(`https://nc-news-24h6.onrender.com/api/articles/${id}`, {inc_votes : -1 }).catch((err)=>{
+    const votes = {inc_votes : -1 };
+    updateVotesForArticleById(id, votes)
+    .catch((err)=>{
         setVoteArticle((currentCount)=> currentCount + 1);
         setErr('Something went wrong, please try again')
     })
@@ -46,11 +56,12 @@ export default function SingleArticleCard({article, activeUserName, id, setVoteA
                 
                 <div className="likesDislikesWrapper">
                     <div className="likes">
-                        <button className="likesBtn" onClick={handleLikeClick}><i className=" fa-regular fa-heart likeIcon"></i> </button>
+                    {likeDisabled ? <button className="likesBtn" onClick={handleLikeClick} disabled><i style={{fontWeight: "bold"}}className="fa-regular fa-heart likeIcon "></i> </button> : <button className="likesBtn" onClick={handleLikeClick} ><i className=" fa-regular fa-heart likeIcon"></i> </button>} 
                     <p>{voteArticle}</p>
                     </div>
                     <div className="dislikes">
-                   <button className="likesBtn" onClick={handleDislikeClick}><i className="fa-regular fa-thumbs-down disLikeIcon"></i></button>
+                        {dislikeDisabled ? <button disabled className="likesBtn" onClick={handleDislikeClick}><i style={{fontWeight: "bold"}}className="fa-regular fa-thumbs-down disLikeIcon"></i></button>: <button className="likesBtn" onClick={handleDislikeClick}><i className="fa-regular fa-thumbs-down disLikeIcon"></i></button>}
+                   
                     
                     </div>
                 </div>

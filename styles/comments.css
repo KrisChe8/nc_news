@@ -64,3 +64,7 @@ border: none;
     justify-content: end;
     margin-top: 2rem;
 }
+
+.statusMessage{
+    margin-left: 1.2rem;
+}
