@@ -16,6 +16,7 @@
     padding: 16px;
     text-shadow: 1px 1px 0 #fff;
     box-shadow:  inset 2px 2px 5px #BABECC, inset -5px -5px 10px #fff;
+    resize: none;
 }
 #newComment:focus {
     box-shadow:  inset 1px 1px 2px #BABECC, inset -1px -1px 2px #fff;
@@ -60,6 +61,6 @@ border: none;
 }
 .commentsFooter{
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     margin-top: 2rem;
 }
