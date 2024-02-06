@@ -88,6 +88,7 @@
     color: rgb(178,34,34);
     font-weight: bold;
 }
+
 .disLikeIcon{
     color: rgb(30,144,255);
     border-radius:15px;
@@ -98,6 +99,7 @@
  font-weight: bold;
  box-shadow: -2px -2px 5px #fff, 2px 2px 5px #BABECC;
 }
+
 .error{
     text-align:end;
     margin-top: 1rem;

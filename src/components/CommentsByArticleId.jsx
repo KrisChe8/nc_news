@@ -1,21 +1,28 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios';
 import CommentCard from './CommentCard';
+import {getCommentsByArticleId, postComment} from '../../utils/api'
+
 export default function CommentsByArticleId({id, activeUserName}){
     let articleId = id;
     const [commentId, setCommentId] = useState(null)
-    const [commentsVote, setCommentsVote] = useState(null)
+    const [commentsVote, setCommentsVote] = useState([])
     const [commentsList, setCommentsList] = useState([])
+
+    const [isLoading, setIsloading] = useState(true);
 
     const [newComment, setNewComment] = useState("")
     const [err, setErr] = useState(null)
+    const commentVoteArr=[];
 
     useEffect(()=>{
-        axios.get(`https://nc-news-24h6.onrender.com/api/articles/${id}/comments`).then((response)=>{
+        getCommentsByArticleId(id)
+        .then((response)=>{
             setCommentsList(response.data.comments)
+            setIsloading(false)
         })
     }, [])
-
+   
+        
     const handleSubmitComment = (e)=>{
         e.preventDefault();
         setCommentsList((currentComments)=>[{
@@ -24,9 +31,13 @@ export default function CommentsByArticleId({id, activeUserName}){
             "votes": 0
         }, ...currentComments]);
         setErr(null);
-        axios.post(`https://nc-news-24h6.onrender.com/api/articles/${id}/comments`, {
+        const msg = {
             "username": activeUserName,
             "body": newComment
+        };
+        postComment(id, msg)
+        .then(()=>{
+            setNewComment("")
         }).catch((err)=>{
             setCommentsList((currentComments)=>{
                 return currentComments.filter(comment => comment.body != newComment)
@@ -42,11 +53,14 @@ export default function CommentsByArticleId({id, activeUserName}){
                 <button className='sendBtn'><i className="fa-regular fa-paper-plane sendIcon"></i>Send</button>
             </form>
             <div className="error">{err ? <h4>{err}</h4> : null}</div>
-            <ul className="commentsList">
-                {commentsList.map((comment)=>{
-                    return <CommentCard key={comment.comment_id} comment={comment} articleId={articleId} activeUserName={activeUserName} />
+            {isLoading ? <h5 className="statusMessage">Loading...</h5> : null}
+            {commentsList.length===0 ? <h5 className="statusMessage">No comments yet... Be the first to comment!</h5> : <ul className="commentsList">    
+                {commentsList.map((comment, index)=>{
+                    commentVoteArr.push(comment["votes"])
+                    return <CommentCard key={comment.comment_id} comment={comment} articleId={articleId} activeUserName={activeUserName} commentsVote={commentsVote} setCommentsVote={setCommentsVote} commentId={comment.comment_id} index={index} setCommentsList={setCommentsList} commentsList={commentsList}/>
                 })}
-            </ul>
+            </ul>}
+            
 
         </div>
 

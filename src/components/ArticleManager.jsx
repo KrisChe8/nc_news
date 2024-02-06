@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios';
 import ArticleCard from './ArticleCard';
+import {getAllArticles} from '../../utils/api'
 
 export default function ArticleManager(){
     const [articleList, setArticleList] = useState([])
     useEffect(()=>{
-        axios.get('https://nc-news-24h6.onrender.com/api/articles').then((response)=>{
+        getAllArticles()
+        .then((response)=>{
             setArticleList(response.data.articles);
         })
     }, [])
