@@ -1,7 +1,9 @@
 import CommentsByArticleId from "./CommentsByArticleId";
 
 export default function CommentCard({comment, articleId, activeUserName}){
-    let date = comment.created_at.split('T');
+
+    // let date = comment.created_at.split('T');
+
     return(
         <div className="commentCard">
             <div className="commentsHeader">
@@ -16,7 +18,7 @@ export default function CommentCard({comment, articleId, activeUserName}){
                 {comment.body}
             </div>
             <div className="commentsFooter">
-                <p className="date">{date[0]}</p>
+                {/* <p className="date">{date[0]}</p> */}
                 <div className="likesDislikesWrapper">
                     <div className="likes">
                         <button className="likesBtn"><i className=" fa-regular fa-heart likeIcon"></i> </button>
