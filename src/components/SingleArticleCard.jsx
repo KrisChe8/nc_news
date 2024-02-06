@@ -1,10 +1,31 @@
 import {Link} from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import axios from 'axios';
 import CommentsByArticleId from './CommentsByArticleId'
-export default function SingleArticleCard({article, activeUserName, id}){
+
+export default function SingleArticleCard({article, activeUserName, id, setVoteArticle, voteArticle }){
 
     // let dateArr = article.created_at.split('T');
     // console.log(dateArr[0])
-   
+    const [err, setErr] = useState(null)
+
+   const handleLikeClick = () =>{
+    setVoteArticle((currentCount)=> currentCount + 1);
+    setErr(null);
+    axios.patch(`https://nc-news-24h6.onrender.com/api/articles/${id}`, {inc_votes : 1 }).catch((err)=>{
+        setVoteArticle((currentCount)=> currentCount - 1);
+        setErr('Something went wrong, please try again')
+    })
+   }
+
+   const handleDislikeClick = ()=>{
+    setVoteArticle((currentCount)=> currentCount - 1);
+    setErr(null);
+    axios.patch(`https://nc-news-24h6.onrender.com/api/articles/${id}`, {inc_votes : -1 }).catch((err)=>{
+        setVoteArticle((currentCount)=> currentCount + 1);
+        setErr('Something went wrong, please try again')
+    })
+   }
 
     return(
         <div className="singleArticleCard">
@@ -25,15 +46,16 @@ export default function SingleArticleCard({article, activeUserName, id}){
                 
                 <div className="likesDislikesWrapper">
                     <div className="likes">
-                        <button className="likesBtn"><i className=" fa-regular fa-heart likeIcon"></i> </button>
-                    <p>{article.votes}</p>
+                        <button className="likesBtn" onClick={handleLikeClick}><i className=" fa-regular fa-heart likeIcon"></i> </button>
+                    <p>{voteArticle}</p>
                     </div>
                     <div className="dislikes">
-                   <button className="likesBtn"><i className="fa-regular fa-thumbs-down disLikeIcon"></i></button>
+                   <button className="likesBtn" onClick={handleDislikeClick}><i className="fa-regular fa-thumbs-down disLikeIcon"></i></button>
                     
                     </div>
                 </div>
             </div>
+            <div className="error">{err ? <h4>{err}</h4> : null}</div>
             <CommentsByArticleId activeUserName={activeUserName} id={id}/>
         </div>
 
