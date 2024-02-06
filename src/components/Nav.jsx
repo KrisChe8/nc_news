@@ -17,7 +17,7 @@ export default function Nav({topicsList, setTopicsList, activeUserName}){
         <nav>
             <ul>
                 <div className="leftbar">
-                    <li ><Link to='/'/>Home</li>
+                    <li ><Link className='linkItem' to='/'>Home</Link></li>
                     <div className="dropdown">
                         <li className="linkItem">Topics</li>
                         <div className="dropdownContent">

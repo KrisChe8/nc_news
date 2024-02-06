@@ -1,5 +1,6 @@
 import {Link} from 'react-router-dom'
-export default function SingleArticleCard({article, activeUserName}){
+import CommentsByArticleId from './CommentsByArticleId'
+export default function SingleArticleCard({article, activeUserName, id}){
 
     // let dateArr = article.created_at.split('T');
     // console.log(dateArr[0])
@@ -33,7 +34,7 @@ export default function SingleArticleCard({article, activeUserName}){
                     </div>
                 </div>
             </div>
-
+            <CommentsByArticleId activeUserName={activeUserName} id={id}/>
         </div>
 
 
