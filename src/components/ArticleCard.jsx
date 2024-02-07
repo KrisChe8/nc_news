@@ -9,12 +9,12 @@ export default function ArticleCard({article}){
            <Link className="linkTitle" to={`/articles/${article.article_id}`}> <h2>{article.title}</h2></Link>
 
             <div className="createdBlock">
-            <Link className="linkAuthor" to={`/article?author=${article.author}`}>Created by: <span className="spanNameAuthor">{article.author} </span></Link>
+            <Link className="linkAuthor" to={`/articles?author=${article.author}`}>Created by: <span className="spanNameAuthor">{article.author} </span></Link>
             <p className="createdDate">{dateArr[0]}</p>
             </div>
 
             <div className="articleFooter">
-                <Link className="articleTopicLink" to={`/article?topic=${article.topic}`} >{article.topic}</Link>
+                <Link className="articleTopicLink" to={`/articles?topic=${article.topic}`} >{article.topic}</Link>
                 <div className="likesWrapper">
                     <img className="likeBtnShow" src="../../like.png" alt="Likes image" /> <p>{article.votes}</p>
                 </div>
