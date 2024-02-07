@@ -1,7 +1,7 @@
 import axios from 'axios';
 // ARTICLES
-export const getAllArticles = ()=>{
-    return  axios.get('https://nc-news-24h6.onrender.com/api/articles')
+export const getAllArticles = (topicQuery, authorQuery)=>{
+    return  axios.get('https://nc-news-24h6.onrender.com/api/articles', {params: {topic: topicQuery, author: authorQuery }})
 }
 
 export const getArticleById = (id)=>{

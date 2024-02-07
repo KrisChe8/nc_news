@@ -19,6 +19,7 @@ function App() {
       <main>
         <Routes>
           <Route path='/' element={ <ArticleManager />} />
+          <Route path='/articles' element={<ArticleManager />} />
           <Route path='/articles/:id' element={<SingleArticleManager activeUserName={activeUserName}/>} />
 
         </Routes>
