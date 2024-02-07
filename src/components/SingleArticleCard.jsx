@@ -4,9 +4,17 @@ import CommentsByArticleId from './CommentsByArticleId'
 import {updateVotesForArticleById} from '../../utils/api'
 
 export default function SingleArticleCard({article, activeUserName, id, setVoteArticle, voteArticle }){
+    
+    // const arrayDate = article.created_at.split('T')
 
-    // let dateArr = article.created_at.split('T');
-    // console.log(dateArr[0])
+    // const dateFormat = (date)=>{
+    //     console.log(date)
+    //     let dateArr = date.split("T");
+    //     return dateArr[0]
+    // }
+    
+    
+   
     const [err, setErr] = useState(null)
     const [likeDisabled, setLikeDisabled] = useState(false);
     const [dislikeDisabled, setDislikeDisabled] = useState(false)
@@ -19,6 +27,7 @@ export default function SingleArticleCard({article, activeUserName, id, setVoteA
     const votes = {inc_votes : 1 };
     updateVotesForArticleById(id, votes)
     .catch((err)=>{
+        setLikeDisabled(false)
         setVoteArticle((currentCount)=> currentCount - 1);
         setErr('Something went wrong, please try again')
     })
@@ -33,6 +42,7 @@ export default function SingleArticleCard({article, activeUserName, id, setVoteA
     updateVotesForArticleById(id, votes)
     .catch((err)=>{
         setVoteArticle((currentCount)=> currentCount + 1);
+        setDislikeDisabled(false)
         setErr('Something went wrong, please try again')
     })
    }
@@ -44,7 +54,9 @@ export default function SingleArticleCard({article, activeUserName, id, setVoteA
             <h2 className="singleHeading">{article.title}</h2>
             <div className="createdBlock">
             <Link className="linkAuthor" to={`/article?author=${article.author}`}>Created by: <span className="spanNameAuthor">{article.author} </span></Link>
-                {/* <p className="createdDate">{dateArr[0]}</p> */}
+
+                {/* <p className="createdDate">{arrayDate[0]}</p> */}
+
             </div>
             <p className="articleBody">{article.body}</p>
 
