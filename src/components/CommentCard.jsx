@@ -2,41 +2,49 @@ import { useState} from 'react'
 import CommentsByArticleId from "./CommentsByArticleId";
 import {deleteCommentById, updateCommentVotes} from '../../utils/api'
 
-export default function CommentCard({comment, articleId, activeUserName, setCommentsVote, commentsVote, commentId, index, setCommentsList, commentsList}){
+export default function CommentCard({comment, articleId, activeUserName, commentId, setCommentsList, commentsList}){
 
     // let date = comment.created_at.split('T');
+    const [likeCount, setLikeCount] = useState(0)
+    const [likeDisabled, setLikeDisabled] = useState(false);
+    const [dislikeDisabled, setDislikeDisabled] = useState(false)
 
     const [err, setErr] = useState(null)
     
     let copyState = [...commentsList];
 
-   
-        const handleLikeClick = (index) =>{
-   
-        setCommentsVote((currentCount)=> currentCount + 1);
-        setErr(null);
-        const votes = {inc_votes : 1 };
-        
-        updateCommentVotes(commentId, votes)
-        .catch((err)=>{
-            setCommentsVote((currentCount)=> currentCount - 1);
-            setErr('Something went wrong, please try again')
-        })
-       }
-    
+    //    Like
+        const handleLikeClick = () =>{
+            setLikeCount((currentCount)=> currentCount + 1);
+            setErr(null);
+            setLikeDisabled(true)
+            setDislikeDisabled(false)
+            
+            const votes = {inc_votes : 1 };
+            updateCommentVotes(commentId, votes)
+            .catch((err)=>{
+                setLikeDisabled(false)
+                setLikeCount((currentCount)=> currentCount - 1);
+                setErr('Something went wrong, please try again')
+            })
+        }
+    //    Dislike
        const handleDislikeClick = ()=>{
-        setCommentsVote((currentCount)=> currentCount - 1);
+        setLikeCount((currentCount)=> currentCount - 1);
         setErr(null);
+        setLikeDisabled(false)
+        setDislikeDisabled(true)
+
         const votes = {inc_votes : -1 };
         updateCommentVotes(commentId, votes)
         .catch((err)=>{
-            setCommentsVote((currentCount)=> currentCount + 1);
+            setDislikeDisabled(false)
+            setLikeCount((currentCount)=> currentCount + 1);
             setErr('Something went wrong, please try again')
         })
        }
-
+    //    Delete comment
        const deleteComment = (idComment) =>{
-        
         setCommentsList((currentComments)=>{
             return currentComments.filter(comment => comment.comment_id != idComment)
         })
@@ -48,8 +56,7 @@ export default function CommentCard({comment, articleId, activeUserName, setComm
         .catch(error => {
             setCommentsList(copyState);
             alert(`Something went wrong, please try again`);
-        });
-            
+        });    
        }
 
     return(
@@ -69,11 +76,11 @@ export default function CommentCard({comment, articleId, activeUserName, setComm
                 {/* <p className="date">{date[0]}</p> */}
                 <div className="likesDislikesWrapper">
                     <div className="likes">
-                        <button value={index} className="likesBtn" onClick={()=>{handleLikeClick(index)}} ><i  className=" fa-regular fa-heart likeIcon"></i> </button>
-                    <p>{comment.votes}</p>
+                    {likeDisabled ? <button className="likesBtn" onClick={handleLikeClick} disabled><i style={{fontWeight: "bold"}}className="fa-regular fa-heart likeIcon "></i> </button> : <button className="likesBtn" onClick={handleLikeClick} ><i className=" fa-regular fa-heart likeIcon"></i> </button>} 
+                    <p>{comment.votes + likeCount}</p>
                     </div>
                     <div className="dislikes">
-                   <button className="likesBtn" onClick={handleDislikeClick}><i className="fa-regular fa-thumbs-down disLikeIcon"></i></button>
+                    {dislikeDisabled ? <button disabled className="likesBtn" onClick={handleDislikeClick}><i style={{fontWeight: "bold"}}className="fa-regular fa-thumbs-down disLikeIcon"></i></button>: <button className="likesBtn" onClick={handleDislikeClick}><i className="fa-regular fa-thumbs-down disLikeIcon"></i></button>}
                     </div>
                 </div>
             </div>

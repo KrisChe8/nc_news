@@ -5,14 +5,13 @@ import {getCommentsByArticleId, postComment} from '../../utils/api'
 export default function CommentsByArticleId({id, activeUserName}){
     let articleId = id;
     const [commentId, setCommentId] = useState(null)
-    const [commentsVote, setCommentsVote] = useState([])
     const [commentsList, setCommentsList] = useState([])
 
     const [isLoading, setIsloading] = useState(true);
 
     const [newComment, setNewComment] = useState("")
     const [err, setErr] = useState(null)
-    const commentVoteArr=[];
+
 
     useEffect(()=>{
         getCommentsByArticleId(id)
@@ -55,9 +54,8 @@ export default function CommentsByArticleId({id, activeUserName}){
             <div className="error">{err ? <h4>{err}</h4> : null}</div>
             {isLoading ? <h5 className="statusMessage">Loading...</h5> : null}
             {commentsList.length===0 ? <h5 className="statusMessage">No comments yet... Be the first to comment!</h5> : <ul className="commentsList">    
-                {commentsList.map((comment, index)=>{
-                    commentVoteArr.push(comment["votes"])
-                    return <CommentCard key={comment.comment_id} comment={comment} articleId={articleId} activeUserName={activeUserName} commentsVote={commentsVote} setCommentsVote={setCommentsVote} commentId={comment.comment_id} index={index} setCommentsList={setCommentsList} commentsList={commentsList}/>
+                {commentsList.map((comment)=>{
+                    return <CommentCard key={comment.comment_id} comment={comment} articleId={articleId} activeUserName={activeUserName} commentId={comment.comment_id} setCommentsList={setCommentsList} commentsList={commentsList}/>
                 })}
             </ul>}
             
