@@ -14,7 +14,7 @@ export default function ArticleManager(){
     const [direction, setDirection] = useState('desc')
     const [sortField, setSortField] = useState("null")
 
-    console.log(sortField)
+    
     // Setting direction asc/deesc
     const onDirectionChange = (e) =>{
         setDirection(e.target.value)

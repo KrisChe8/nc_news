@@ -10,6 +10,9 @@ export const getArticleById = (id)=>{
 export const updateVotesForArticleById = (id, votes)=>{
    return axios.patch(`https://nc-news-24h6.onrender.com/api/articles/${id}`, votes)
 }
+export const postNewArticle = (newArticle) =>{
+    return axios.post(`https://nc-news-24h6.onrender.com/api//articles`, newArticle)
+}
 
 // COMMENTS
 export const getCommentsByArticleId =(id)=>{
