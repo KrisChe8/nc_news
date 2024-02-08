@@ -62,7 +62,7 @@ export default function SingleArticleCard({article, activeUserName, id, setVoteA
 
             <div className="singleArticleFooter">
               {activeUserName ? <div className="editDelBtnWrapper">
-                    <Link className="editBtnLink" to={`/articles/${article.article_id}/edit`}><button className="btn editBtn">Edit</button> </Link>
+                    {/* <Link className="editBtnLink" to={`/articles/${article.article_id}/edit`}><button className="btn editBtn">Edit</button> </Link> */}
                     <button className="btn deleteBtn">Delete</button>
                 </div> : null }  
                 
