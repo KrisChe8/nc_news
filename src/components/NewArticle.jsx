@@ -41,7 +41,7 @@ export default function NewArticle({topicsList, activeUserName}){
         <section className="newArtcileSection">
             <h2>Post new Article</h2>
             {errorPost ? <h3 className="errorDisplay">{errorPost}</h3> : null}
-            {isListed ? <div> <h3 className='item-listed'>Item successfully listed!</h3> </div> :
+            {isListed ? <div> <h3 className='item-listed'>Article successfully listed!</h3> </div> :
             <form className="newArticleForm" onSubmit={postNewArticleHandler}>
                 <label className='newArticleLabel' htmlFor="title">Please add title of the article:*</label>
                 <input className="inputAddArticle" value={newTitle} onChange={e=>setNewTitle(e.target.value)} type="text" id="title" placeholder="My new article..." required/>

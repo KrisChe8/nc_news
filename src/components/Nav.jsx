@@ -28,7 +28,7 @@ export default function Nav({topicsList, setTopicsList, activeUserName}){
                             
                         </div>
                     </div>
-                    <li className='linkItem'><Link className="linkItem" to='/new-article'> Add New Article </Link></li>
+                    <li ><Link className="linkItem" to='/new-article'> Add New Article </Link></li>
                 </div>
                 <div className="rightbar">
                     <p className="userActive">{activeUserName}</p>
