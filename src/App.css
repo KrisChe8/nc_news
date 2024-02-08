@@ -117,7 +117,7 @@ footer{
   border-radius: 15px;
   box-shadow:  inset 2px 2px 5px #BABECC, inset -5px -5px 10px #fff;
   background: #d9d9d9;
-
+  position: relative;
 
 }
 .articleImg{
@@ -162,6 +162,10 @@ footer{
   margin-top: 1.2rem;
   padding-left: 15px;
 padding-right: 15px;
+position: absolute;
+bottom: 15px;
+width: 100%;
+left: 5px;
 }
 .likesWrapper{
   display: flex;
@@ -231,4 +235,35 @@ padding-right: 15px;
 .loading{
   text-align: center;
   font-size: 18px;
+}
+.errorPage{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  
+}
+.notfoundImg{
+  max-width: 60%;
+ 
+}
+.badRequest{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.badRequest h3{
+  font-size: 1.4rem;
+  color:rgb(178,34,34);
+}
+.badReqImg{
+  max-width:50%;
+  max-height: 50%;
+  margin-top: -30px; 
+}
+.commentsLikesWrapper{
+  display: flex;
+}
+.commentsLikesWrapper p{
+margin-right: 1.3rem;
 }

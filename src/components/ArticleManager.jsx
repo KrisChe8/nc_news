@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import ArticleCard from './ArticleCard';
 import {getAllArticles} from '../../utils/api'
 import { useSearchParams } from 'react-router-dom';
+import ErrorPage from './ErrorPage';
 
 export default function ArticleManager(){
     const [articleList, setArticleList] = useState([])
@@ -13,6 +14,7 @@ export default function ArticleManager(){
 
     const [direction, setDirection] = useState('desc')
     const [sortField, setSortField] = useState("null")
+    const [isError, setIsError] = useState(null)
 
     
     // Setting direction asc/deesc
@@ -26,31 +28,51 @@ export default function ArticleManager(){
         setSearchParams(newParams)
     }
 
-    // sorting 
-    const sortBasedOnKey = (property) =>{
+    // sorting desc
+    const sortBasedOnKey = (sortKey, directKey) =>{
         const array = [...articleList];
-        return array.sort((a, b)=>{
-            let x = a[property];
-            let y = b[property];
-            return y-x;
-        })  
+        if (directKey === "asc"){
+            return array.sort((a, b)=>{
+                let x = a[sortKey];
+                let y = b[sortKey];
+                return x-y;
+            }) 
+        }else{
+            return array.sort((a, b)=>{
+                let x = a[sortKey];
+                let y = b[sortKey];
+                return y-x;
+            }) 
+        }
+         
     }
     const handleSortChange = (e) =>{
-        setSortField(e.target.value)
-        if(e.target.value !== "null"){
-            let sortedData = sortBasedOnKey(e.target.value);
+        let userResponse=e.target.value;
+        const userResponseArr = userResponse.split("-");
+        let sortKey = userResponseArr[0];
+        let directKey = userResponseArr[1]
+
+        if(sortKey !== "null"){
+            setSortField(sortKey)
+            let sortedData = sortBasedOnKey(sortKey, directKey);
             setArticleList(sortedData)
         }
     }
+     
 
     useEffect(()=>{
         getAllArticles(topicQuery, authorQuery, direction)
         .then((response)=>{
             setArticleList(response.data.articles);
             setIsloading(false)
+        }).catch((error)=>{
+            setIsError({error})
         })
     }, [searchParams])
 
+    if(isError){
+        return <ErrorPage isError={isError} />
+    }
     if (isLoading)  return <p className="loading">Loading ... </p>
     return(
         <main>
@@ -70,9 +92,13 @@ export default function ArticleManager(){
                         <h3 className="sortByItem">Sort by...</h3>
                         
                         <select value={sortField} onChange={handleSortChange} id="list-sorting">
-                            <option  disabled value={"null"}>Choose ...</option> 
-                            <option value="comment_count">By comment count</option>
-                            <option value="votes">By votes</option>
+                            <option   value={"null"}>Choose ...</option> 
+                            <option value="comment_count-desc">By comment count: High to Low</option>
+                            <option value="votes-desc">By votes: High to Low</option>
+                            <option value="comment_count-asc">By comment count: Low to High</option>
+                            <option value="votes-asc">By votes: Low to High</option>
+                            
+
                         </select>
                 </div>
             </div>
