@@ -15,9 +15,12 @@ export default function ArticleCard({article}){
 
             <div className="articleFooter">
                 <Link className="articleTopicLink" to={`/articles?topic=${article.topic}`} >{article.topic}</Link>
+                <div className="commentsLikesWrapper">
+                    <p>Comments: {article.comment_count}</p>
                 <div className="likesWrapper">
                     <img className="likeBtnShow" src="../../like.png" alt="Likes image" /> <p>{article.votes}</p>
                 </div>
+                </div>   
             </div>
         </div>
     )

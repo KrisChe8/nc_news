@@ -10,7 +10,8 @@ export default function CommentsByArticleId({id, activeUserName}){
     const [isLoading, setIsloading] = useState(true);
 
     const [newComment, setNewComment] = useState("")
-    const [err, setErr] = useState(null)
+    const [err1, setErr1] = useState(null)
+    const [errByFetch, setErrByFetch] =useState(null)
 
 
     useEffect(()=>{
@@ -18,6 +19,9 @@ export default function CommentsByArticleId({id, activeUserName}){
         .then((response)=>{
             setCommentsList(response.data.comments)
             setIsloading(false)
+        })
+        .catch((error)=>{
+            setErrByFetch(error.response)
         })
     }, [])
    
@@ -29,7 +33,7 @@ export default function CommentsByArticleId({id, activeUserName}){
             "body": newComment,
             "votes": 0
         }, ...currentComments]);
-        setErr(null);
+        setErr1(null);
         const msg = {
             "username": activeUserName,
             "body": newComment
@@ -41,17 +45,19 @@ export default function CommentsByArticleId({id, activeUserName}){
             setCommentsList((currentComments)=>{
                 return currentComments.filter(comment => comment.body != newComment)
             });
-            setErr('Something went wrong, please try again')
+            setErr1('Something went wrong, please try again')
         })
     }
-
+    if(errByFetch){
+        return <ErrorPage err={errByFetch} />
+    }
     return(
         <div className="commentsBlock">
             <form className='commentsForm' onSubmit={handleSubmitComment}>
                 <textarea name="" id="newComment" cols="60" rows="4" placeholder="Your comment..." value={newComment} onChange={e=>setNewComment(e.target.value)}></textarea>
                 <button className='sendBtn'><i className="fa-regular fa-paper-plane sendIcon"></i>Send</button>
             </form>
-            <div className="error">{err ? <h4>{err}</h4> : null}</div>
+            <div className="error">{err1 ? <h4>{err1}</h4> : null}</div>
             {isLoading ? <h5 className="statusMessage">Loading...</h5> : null}
             {commentsList.length===0 ? <h5 className="statusMessage">No comments yet... Be the first to comment!</h5> : <ul className="commentsList">    
                 {commentsList.map((comment)=>{

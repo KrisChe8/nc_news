@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {Routes, Route} from 'react-router-dom'
 import ArticleManager from './ArticleManager'
-
+import ErrorPage from './ErrorPage'
 import Footer from './Footer'
 import Header from './Header'
 import Nav from './Nav'
@@ -13,6 +13,7 @@ import SingleArticleManager from './SingleArticleManager'
 function App() {
  const [topicsList, setTopicsList] = useState([])
  const [activeUserName, setActiveUserName] = useState('grumpy19')
+ const [isError, setIsError] = useState(null)
 
   return (
     <>
@@ -20,13 +21,13 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path='/' element={ <ArticleManager />} />
+          <Route path='/' element={ <ArticleManager setIsError={setIsError}/>} />
           <Route path='/articles' element={<ArticleManager />} />
           <Route path='/new-article' element={<NewArticle topicsList={topicsList} activeUserName={activeUserName} />} />
-          <Route path='/articles/:id' element={<SingleArticleManager activeUserName={activeUserName}/>} />
-
+          <Route path='/articles/:id' element={<SingleArticleManager activeUserName={activeUserName} isError={isError} setIsError={setIsError}/>} />
+          <Route path="*" element={<ErrorPage />} />
         </Routes>
-     
+        
 
       </main>
 
