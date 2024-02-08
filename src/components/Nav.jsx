@@ -2,6 +2,7 @@ import {Link} from 'react-router-dom'
 import axios from 'axios';
 import TopicList from './TopicLink';
 import { useEffect } from 'react';
+
 export default function Nav({topicsList, setTopicsList, activeUserName}){
 
     useEffect(()=>{
@@ -27,7 +28,7 @@ export default function Nav({topicsList, setTopicsList, activeUserName}){
                             
                         </div>
                     </div>
-                    <li className='linkItem'>Add New Article</li>
+                    <li className='linkItem'><Link className="linkItem" to='/new-article'> Add New Article </Link></li>
                 </div>
                 <div className="rightbar">
                     <p className="userActive">{activeUserName}</p>
