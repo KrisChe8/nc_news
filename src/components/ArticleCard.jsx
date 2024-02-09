@@ -18,7 +18,7 @@ export default function ArticleCard({article}){
                 <div className="commentsLikesWrapper">
                     <p>Comments: {article.comment_count}</p>
                 <div className="likesWrapper">
-                    <img className="likeBtnShow" src='../../public/like.png' alt="Likes image" /> <p>{article.votes}</p>
+                    <img className="likeBtnShow" src='/like.png' alt="Likes image" /> <p>{article.votes}</p>
                 </div>
                 </div>   
             </div>
