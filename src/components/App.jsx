@@ -4,6 +4,7 @@ import ArticleManager from './ArticleManager'
 import ErrorPage from './ErrorPage'
 import Footer from './Footer'
 import Header from './Header'
+import Home from './Home'
 import Nav from './Nav'
 import NewArticle from './NewArticle'
 import SingleArticleManager from './SingleArticleManager'
@@ -21,7 +22,7 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path='/' element={ <ArticleManager setIsError={setIsError}/>} />
+          <Route path='/' element={ <Home setIsError={setIsError}/>} />
           <Route path='/articles' element={<ArticleManager />} />
           <Route path='/new-article' element={<NewArticle topicsList={topicsList} activeUserName={activeUserName} />} />
           <Route path='/articles/:id' element={<SingleArticleManager activeUserName={activeUserName} isError={isError} setIsError={setIsError}/>} />

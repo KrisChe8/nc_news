@@ -10,10 +10,10 @@ export default function NewArticle({topicsList, activeUserName}){
 
     const [isListed, setIslisted] = useState(false)
     const [errorPost, setErrorPost] = useState("")
-
+   
     const postNewArticleHandler = (event) =>{
         event.preventDefault();
-        console.log()
+       
         const newArticle = {
             "title": newTitle,
             "topic": newArticleTopic,
