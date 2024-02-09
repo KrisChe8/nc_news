@@ -84,3 +84,38 @@
     color: 	rgb(46,139,87);
     margin-top: 4rem;
   }
+
+  @media only screen and (max-width: 800px){
+    .newArticleForm{
+        width: 70%;
+    }
+  }
+  @media only screen and (max-width: 545px){
+    .newArticleForm{
+        width: 90%;
+    }
+    .newArticleLabel {
+        margin-top: 1rem;
+    }
+    .newArticleForm input {
+        width: 94%;
+        margin-top: 0.4rem;
+    }
+    #textAreaArticle {
+        width: 94%;
+    }
+  }
+
+  @media only screen and (max-width: 445px){
+    .newArtcileSection h2{
+        font-size: 1.1rem;
+    }
+    .newArticleForm {
+        padding: 0.9rem;
+        padding-bottom: 1.5rem;
+    }
+    .newArticleSelect{
+        font-size: 0.9rem;
+    }
+  }
+  

@@ -65,7 +65,7 @@ export default function CommentCard({comment, articleId, activeUserName, comment
                 <h3>{comment.author}</h3>
                 {activeUserName===comment.author ? <div className="handleBlock">
                
-                <button className="btn deleteBtn" onClick={()=>{deleteComment(commentId)}}>Delete</button>
+                <button className="btn deleteBtn deleteBtnComment" onClick={()=>{deleteComment(commentId)}}>Delete</button>
                 </div> : null}
                 
             </div>

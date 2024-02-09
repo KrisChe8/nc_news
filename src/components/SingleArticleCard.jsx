@@ -42,7 +42,7 @@ export default function SingleArticleCard({article, activeUserName, id, setVoteA
             <img className="articleImg articleImgSingle" src={article.article_img_url} alt={article.title} />
             
             <h2 className="singleHeading">{article.title}</h2>
-            <div className="createdBlock">
+            <div className="createdBlock createdBlock_singleArt">
             <Link className="linkAuthor" to={`/article?author=${article.author}`}>Created by: <span className="spanNameAuthor">{article.author} </span></Link>
 
                 <p className="createdDate">{date}</p>
