@@ -8,7 +8,7 @@ export default function ErrorPage({err}){
             return(
                 <section className="badRequest">
                 <h3>Bad request</h3>
-                <img className="badReqImg" src="../../src/assets/400.png" alt="Bad request" />
+                <img className="badReqImg" src="../../public/400.png" alt="Bad request" />
                 </section>
             )
         }
@@ -16,7 +16,7 @@ export default function ErrorPage({err}){
     
     return(
         <section className="errorPage">
-            <img className="notfoundImg" src="../../src/assets/404.jpeg" alt="Page not found" />
+            <img className="notfoundImg" src=".../../public/404.jpeg" alt="Page not found" />
         </section>
     )
 }
