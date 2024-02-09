@@ -107,3 +107,58 @@
 .error h4{
     color: 	rgb(178,34,34);
 }
+
+@media only screen and (max-width: 830px){
+    .deleteBtn{
+        margin-right: 0.6rem;
+    }
+   
+}
+@media only screen and (max-width: 450px){
+    .singleArticleCard{
+        max-width: 98%;
+        padding: 1rem;
+    }
+    .articleImgSingle{
+        height: 200px;
+    }
+    .singleHeading {
+        font-size: 1.2rem;
+        margin-top: 1rem;
+        margin-bottom: 0.6rem;
+    }
+    .createdBlock_singleArt{
+        flex-direction: row;
+        margin-bottom: 0.6rem;
+    }
+    .articleBody {
+        font-size: 1rem;
+    }
+    .singleArticleFooter{
+        margin-top: 1.4rem;
+    }
+    .likeIcon, .disLikeIcon{
+        font-size: 1.3rem;
+    }
+    .likes p{
+        font-size: 0.9rem;
+    }
+    .commentsForm{
+        flex-direction: column;
+    }
+    .commentsForm #newComment{
+        width: 98%;
+        margin-right: 0.1rem;
+        margin-bottom: 0.6rem;
+    }
+    .commentsHeader h3{
+        font-size: 0.9rem;
+    }
+    .deleteBtnComment{
+        margin-right: 0.3rem;
+        width: 80px;
+        font-size: 12px;
+        height: 34px;
+    }
+}
+
