@@ -3,18 +3,8 @@ import { useState} from 'react'
 import CommentsByArticleId from './CommentsByArticleId'
 import {updateVotesForArticleById} from '../../utils/api'
 
-export default function SingleArticleCard({article, activeUserName, id, setVoteArticle, voteArticle }){
-    
-    // const arrayDate = article.created_at.split('T')
-
-    // const dateFormat = (date)=>{
-    //     console.log(date)
-    //     let dateArr = date.split("T");
-    //     return dateArr[0]
-    // }
-    
-    
-   
+export default function SingleArticleCard({article, activeUserName, id, setVoteArticle, voteArticle, date }){
+       
     const [err, setErr] = useState(null)
     const [likeDisabled, setLikeDisabled] = useState(false);
     const [dislikeDisabled, setDislikeDisabled] = useState(false)
@@ -55,17 +45,16 @@ export default function SingleArticleCard({article, activeUserName, id, setVoteA
             <div className="createdBlock">
             <Link className="linkAuthor" to={`/article?author=${article.author}`}>Created by: <span className="spanNameAuthor">{article.author} </span></Link>
 
-                {/* <p className="createdDate">{arrayDate[0]}</p> */}
+                <p className="createdDate">{date}</p>
 
             </div>
             <p className="articleBody">{article.body}</p>
 
             <div className="singleArticleFooter">
-              {activeUserName ? <div className="editDelBtnWrapper">
-                    {/* <Link className="editBtnLink" to={`/articles/${article.article_id}/edit`}><button className="btn editBtn">Edit</button> </Link> */}
+              {/* {activeUserName===article.author ? <div className="editDelBtnWrapper">
                     <button className="btn deleteBtn">Delete</button>
-                </div> : null }  
-                
+                </div> : <div></div> }   */}
+                <div></div>
                 <div className="likesDislikesWrapper">
                     <div className="likes">
                     {likeDisabled ? <button className="likesBtn" onClick={handleLikeClick} disabled><i style={{fontWeight: "bold"}}className="fa-regular fa-heart likeIcon "></i> </button> : <button className="likesBtn" onClick={handleLikeClick} ><i className=" fa-regular fa-heart likeIcon"></i> </button>} 

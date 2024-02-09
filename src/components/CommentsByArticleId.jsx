@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import CommentCard from './CommentCard';
 import {getCommentsByArticleId, postComment} from '../../utils/api'
+import ErrorPage from './ErrorPage';
 
 export default function CommentsByArticleId({id, activeUserName}){
     let articleId = id;
@@ -12,7 +13,7 @@ export default function CommentsByArticleId({id, activeUserName}){
     const [newComment, setNewComment] = useState("")
     const [err1, setErr1] = useState(null)
     const [errByFetch, setErrByFetch] =useState(null)
-
+    const [disabledBtn, setDisabledBtn] = useState(false)
 
     useEffect(()=>{
         getCommentsByArticleId(id)
@@ -28,6 +29,7 @@ export default function CommentsByArticleId({id, activeUserName}){
         
     const handleSubmitComment = (e)=>{
         e.preventDefault();
+        setDisabledBtn(true)
         setCommentsList((currentComments)=>[{
             "author": activeUserName,
             "body": newComment,
@@ -41,6 +43,7 @@ export default function CommentsByArticleId({id, activeUserName}){
         postComment(id, msg)
         .then(()=>{
             setNewComment("")
+            setDisabledBtn(false)
         }).catch((err)=>{
             setCommentsList((currentComments)=>{
                 return currentComments.filter(comment => comment.body != newComment)
@@ -55,7 +58,8 @@ export default function CommentsByArticleId({id, activeUserName}){
         <div className="commentsBlock">
             <form className='commentsForm' onSubmit={handleSubmitComment}>
                 <textarea name="" id="newComment" cols="60" rows="4" placeholder="Your comment..." value={newComment} onChange={e=>setNewComment(e.target.value)}></textarea>
-                <button className='sendBtn'><i className="fa-regular fa-paper-plane sendIcon"></i>Send</button>
+                {disabledBtn? <button className='sendBtn' disabled><i className="fa-regular fa-paper-plane sendIcon"></i>Send</button> : <button className='sendBtn' ><i className="fa-regular fa-paper-plane sendIcon"></i>Send</button>}
+                
             </form>
             <div className="error">{err1 ? <h4>{err1}</h4> : null}</div>
             {isLoading ? <h5 className="statusMessage">Loading...</h5> : null}

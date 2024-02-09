@@ -59,7 +59,6 @@ export default function ArticleManager(){
         }
     }
      
-
     useEffect(()=>{
         getAllArticles(topicQuery, authorQuery, direction)
         .then((response)=>{
@@ -97,8 +96,6 @@ export default function ArticleManager(){
                             <option value="votes-desc">By votes: High to Low</option>
                             <option value="comment_count-asc">By comment count: Low to High</option>
                             <option value="votes-asc">By votes: Low to High</option>
-                            
-
                         </select>
                 </div>
             </div>
